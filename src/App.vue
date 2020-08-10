@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" class="deep-orange lighten-3" dark app>
+    <v-navigation-drawer v-model="drawer" class="primary" dark app>
       <v-list>
         <v-list-item v-for="item in items" :key="item.title" link :to="item.link">
           <v-list-item-icon>
@@ -14,7 +14,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar color="deep-orange darken-1" dense dark app>
+    <v-app-bar color="primary" dense dark app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title class="headline">
