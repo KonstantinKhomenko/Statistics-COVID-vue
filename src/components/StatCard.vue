@@ -5,7 +5,7 @@
     </div>
 
     <v-card-title class="headline text-bold">
-      <span class="count" :title="cardAmountNew + 'last day'">{{ cardAmount }}</span>
+      <span class="count" :title="cardAmountNew + ' last day'">{{ cardAmount }}</span>
     </v-card-title>
 
     <v-card-subtitle class="text-center text-bold">{{ cardTitle }}</v-card-subtitle>
