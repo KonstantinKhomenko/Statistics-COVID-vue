@@ -17,6 +17,27 @@
 
     <section>
       <h2 class="display-1 ma-3">Visuals</h2>
+      <v-btn
+        class="ma-3 primary lighten-2"
+        elevation="10"
+        small
+        @click="showVisuals('cases')"
+        >Total cases
+      </v-btn>
+      <v-btn
+        class="ma-3 red accent-2"
+        elevation="10"
+        small
+        @click="showVisuals('deaths')"
+        >Deaths
+      </v-btn>
+      <v-btn
+        class="ma-3 teal lighten-1"
+        elevation="10"
+        small
+        @click="showVisuals('recovered')"
+        >Recoveries
+      </v-btn>
       <div class="graf">
         <LineChart
           v-for="(visual, index) in visuals"
@@ -41,69 +62,102 @@ export default {
     LineChart
   },
   data: () => ({
-    cards: [
-      {
+    cards: [],
+    visuals: []
+  }),
+
+  computed: {
+    ...mapGetters('data', [
+      'allContinents',
+      'allContinentsCases',
+      'allContinentsTodayCases',
+      'allContinentsDeaths',
+      'allContinentsTodayDeaths',
+      'allContinentsRecovered',
+      'allContinentsTodayRecovered',
+      'allCases',
+      'allDataDate',
+      'allDataNumbers'
+    ])
+  },
+
+  methods: {
+    ...mapActions('data', [
+      'fetchDataOnContinents',
+      'fetchAllCases',
+      'getAllValues'
+    ]),
+    updateStats() {
+      if (!this.allContinents) return;
+
+      this.cards.push({
         title: 'total cases',
         bgColor: 'primary lighten-2',
-        amount: 0,
-        amountNew: 200,
+        amount: this.allContinentsCases,
+        amountNew: this.allContinentsTodayCases,
         icon: 'mdi-alert-box'
-      },
-      {
+      });
+
+      this.cards.push({
         title: 'deaths',
         bgColor: 'red accent-2',
-        amount: 0,
-        amountNew: 200,
+        amount: this.allContinentsDeaths,
+        amountNew: this.allContinentsTodayDeaths,
         icon: 'mdi-emoticon-dead'
-      },
-      {
+      });
+
+      this.cards.push({
         title: 'recoveries',
         bgColor: 'teal lighten-1',
-        amount: 0,
-        amountNew: 200,
+        amount: this.allContinentsRecovered,
+        amountNew: this.allContinentsTodayRecovered,
         icon: 'mdi-hospital-box'
-      }
-    ],
-    visuals: [
-      {
+      });
+    },
+    showVisuals(value) {
+      this.getAllValues(value);
+      this.updateVisuals(value);
+    },
+    updateVisuals(key) {
+      if (!this.allCases) return;
+
+      this.visuals.length = 0;
+
+      const labels = {
+        cases: 'Total cases',
+        deaths: 'Deaths',
+        recovered: 'Recovered'
+      };
+
+      const bgColors = {
+        cases: '#6aaaff',
+        deaths: '#FF5252',
+        recovered: '#26a69a'
+      };
+
+      this.visuals.push({
         chartData: {
-          labels: ['mkdsmk', 'fdfd', 'dsds', 'fdsfsfsd', 'dadsada'],
+          labels: this.allDataDate,
           datasets: [
             {
-              label: 'das',
-              backgroundColor: 'orangered',
-              data: [49, 232, 23, 545, 3232]
+              label: labels[key],
+              backgroundColor: bgColors[key],
+              data: this.allDataNumbers
             }
           ]
         },
         options: { responsive: true, maintainAspectRatio: false }
-      }
-    ]
-  }),
-
-  computed: {
-    ...mapGetters('data', ['allContinents'])
-  },
-
-  methods: {
-    ...mapActions('data', ['fetchDataOnContinents']),
-    updateStats() {
-      if (this.allContinents) {
-        this.cards[0].amount = this.allContinents.reduce((acc, el) => acc += el.cases, 0);
-        this.cards[1].amount = this.allContinents.reduce((acc, el) => acc += el.deaths, 0);
-        this.cards[2].amount = this.allContinents.reduce((acc, el) => acc += el.recovered, 0);
-
-        this.cards[0].amountNew = this.allContinents.reduce((acc, el) => acc += el.todayCases, 0);
-        this.cards[1].amountNew = this.allContinents.reduce((acc, el) => acc += el.todayDeaths, 0);
-        this.cards[2].amountNew = this.allContinents.reduce((acc, el) => acc += el.todayRecovered, 0);
-
-      }
+      });
     }
   },
 
   async mounted() {
     await this.fetchDataOnContinents();
     this.updateStats();
+
+    await this.fetchAllCases();
+
+    this.showVisuals('cases');
   }
 };
 </script>
@@ -112,7 +166,7 @@ export default {
 .graf {
   width: 100%;
   height: 100%;
-  max-width: 1000px;
+  max-width: auto;
   margin: auto;
 }
 </style>
