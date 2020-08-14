@@ -54,6 +54,7 @@
 import StatCard from '@/components/StatCard';
 import LineChart from '@/components/LineChart';
 import { mapActions, mapGetters } from 'vuex';
+import Card from '@/components/classes/Card';
 
 export default {
   name: 'Total',
@@ -90,29 +91,35 @@ export default {
     updateStats() {
       if (!this.allContinents) return;
 
-      this.cards.push({
-        title: 'total cases',
-        bgColor: 'primary lighten-2',
-        amount: this.allContinentsCases,
-        amountNew: this.allContinentsTodayCases,
-        icon: 'mdi-alert-box'
-      });
+      this.cards.push(
+        new Card(
+          'total cases',
+          'primary lighten-2',
+          this.allContinentsCases,
+          this.allContinentsTodayCases,
+          'mdi-alert-box'
+        )
+      );
 
-      this.cards.push({
-        title: 'deaths',
-        bgColor: 'red accent-2',
-        amount: this.allContinentsDeaths,
-        amountNew: this.allContinentsTodayDeaths,
-        icon: 'mdi-emoticon-dead'
-      });
+      this.cards.push(
+        new Card(
+          'deaths',
+          'red accent-2',
+          this.allContinentsDeaths,
+          this.allContinentsTodayDeaths,
+          'mdi-emoticon-dead'
+        )
+      );
 
-      this.cards.push({
-        title: 'recoveries',
-        bgColor: 'teal lighten-1',
-        amount: this.allContinentsRecovered,
-        amountNew: this.allContinentsTodayRecovered,
-        icon: 'mdi-hospital-box'
-      });
+      this.cards.push(
+        new Card(
+          'recoveries',
+          'teal lighten-1',
+          this.allContinentsRecovered,
+          this.allContinentsTodayRecovered,
+          'mdi-hospital-box'
+        )
+      );
     },
     showVisuals(value) {
       this.getAllValues(value);
