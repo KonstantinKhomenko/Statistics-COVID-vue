@@ -1,7 +1,7 @@
 <template>
   <main class="pa-3">
     <section>
-      <h1 class="display-1 ma-3">World summary sats</h1>
+      <p class="ma-3">World summary sats</p>
       <v-row align="center" justify="center">
         <StatCard
           v-for="card in cards"
@@ -16,23 +16,23 @@
     </section>
 
     <section>
-      <h2 class="display-1 ma-3">Visuals</h2>
+      <p class="ma-3">Visuals</p>
       <v-btn
-        class="ma-3 primary lighten-2"
+        class="ma-3 blue lighten-1"
         elevation="10"
         small
         @click="showVisuals('cases')"
         >Total cases
       </v-btn>
       <v-btn
-        class="ma-3 red accent-2"
+        class="ma-3 deep-orange darken-4"
         elevation="10"
         small
         @click="showVisuals('deaths')"
         >Deaths
       </v-btn>
       <v-btn
-        class="ma-3 teal lighten-1"
+        class="ma-3 green lighten-2"
         elevation="10"
         small
         @click="showVisuals('recovered')"
@@ -94,7 +94,7 @@ export default {
       this.cards.push(
         new Card(
           'total cases',
-          'primary lighten-2',
+          'blue lighten-1',
           this.allContinentsCases,
           this.allContinentsTodayCases,
           'mdi-alert-box'
@@ -104,7 +104,7 @@ export default {
       this.cards.push(
         new Card(
           'deaths',
-          'red accent-2',
+          'deep-orange darken-4',
           this.allContinentsDeaths,
           this.allContinentsTodayDeaths,
           'mdi-emoticon-dead'
@@ -114,7 +114,7 @@ export default {
       this.cards.push(
         new Card(
           'recoveries',
-          'teal lighten-1',
+          'green lighten-2',
           this.allContinentsRecovered,
           this.allContinentsTodayRecovered,
           'mdi-hospital-box'
@@ -137,9 +137,9 @@ export default {
       };
 
       const bgColors = {
-        cases: '#6aaaff',
-        deaths: '#FF5252',
-        recovered: '#26a69a'
+        cases: '#42A5F5',
+        deaths: '#BF360C',
+        recovered: '#81C784'
       };
 
       this.visuals.push({
@@ -170,6 +170,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p {
+  font-size: 30px;
+  font-weight: bold;
+}
+
 .graf {
   width: 100%;
   height: 100%;

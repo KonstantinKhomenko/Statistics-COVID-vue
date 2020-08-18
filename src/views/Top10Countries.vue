@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="ma-3">Top 10 countries</h2>
+    <p class="ma-3">Top 10 countries</p>
     <TopList :top-country-info="topCountryInfo" />
   </div>
 </template>
@@ -28,3 +28,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+p {
+  font-size: 30px;
+  font-weight: bold;
+}
+</style>

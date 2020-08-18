@@ -18,7 +18,8 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title class="headline title">
-        <v-icon class="mr-2" color="#FFFF00">mdi-virus</v-icon>COVID-19
+        <v-icon class="mr-2" color="#D50000">mdi-virus</v-icon>
+        <span class="toolbar-title">COVID-19</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -43,15 +44,23 @@ export default {
         icon: 'mdi-newspaper',
         link: '/country/Ukraine'
       },
-      { title: 'Top 10 countries', icon: 'mdi-flag', link: '/top10countries' }
+      { title: 'Top 10 countries', icon: 'mdi-flag', link: '/top10countries' },
+      { title: 'Search country', icon: 'mdi-search-web', link: '/search' }
     ],
     drawer: true
   })
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
+#app {
+  font-family: 'Merriweather', serif;
+}
+.toolbar-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
 .title {
-  color: #ffff00;
+  color: #d50000;
 }
 </style>
