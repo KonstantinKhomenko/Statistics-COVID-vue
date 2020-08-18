@@ -9,7 +9,8 @@ const topCountriesStore = {
     topCountries: []
   },
   getters: {
-    topCountryNames: ({ topCountries }) => topCountries.map(el => el.country)
+    topCountryInfo: ({ topCountries }) =>
+      topCountries.map(el => ({ name: el.country, cases: el.cases }))
   },
   mutations: {
     [NEW_TOP_COUNTRY](state, countries) {
@@ -19,8 +20,7 @@ const topCountriesStore = {
   actions: {
     async fetchTopCountries({ commit }) {
       const res = await axios.get(`/countries?sort=active`);
-      const countries = res.slice(0, 5);
-
+      const countries = res.slice(0, 10);
       commit(NEW_TOP_COUNTRY, countries);
     }
   }

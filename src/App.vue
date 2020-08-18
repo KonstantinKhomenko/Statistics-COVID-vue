@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" class="primary" dark app>
+    <v-navigation-drawer v-model="drawer" class="blue-grey darken-1" dark app>
       <v-list>
         <v-list-item v-for="item in items" :key="item.title" link :to="item.link">
           <v-list-item-icon>
@@ -14,15 +14,14 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar color="primary" dense dark app>
+    <v-app-bar color="blue-grey lighten-2" dense dark app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title class="headline">
-        <v-icon class="mr-2">mdi-virus</v-icon>COVID-19
+      <v-toolbar-title class="headline title">
+        <v-icon class="mr-2" color="#FFFF00">mdi-virus</v-icon>COVID-19
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <Menu />
     </v-app-bar>
 
     <v-main>
@@ -34,20 +33,25 @@
 </template>
 
 <script>
-import Menu from '@/components/Menu';
-
 export default {
   name: 'App',
-  components: {
-    Menu
-  },
   data: () => ({
     items: [
       { title: 'World summary', icon: 'mdi-earth', link: '/' },
-      { title: 'Countries', icon: 'mdi-flag', link: '/countries' },
-      { title: 'News', icon: 'mdi-newspaper', link: '/' }
+      {
+        title: 'Ukraine statistics',
+        icon: 'mdi-newspaper',
+        link: '/country/Ukraine'
+      },
+      { title: 'Top 10 countries', icon: 'mdi-flag', link: '/top10countries' }
     ],
-    drawer: false
+    drawer: true
   })
 };
 </script>
+
+<style lang="scss" scoped>
+.title {
+  color: #ffff00;
+}
+</style>

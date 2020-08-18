@@ -11,9 +11,14 @@ const routes = [
     component: Total
   },
   {
-    path: '/countries',
-    name: 'Countries',
-    component: () => import('../views/Countries.vue')
+    path: '/top10countries',
+    name: 'Top10Countries',
+    component: () => import('../views/Top10Countries.vue')
+  },
+  {
+    path: '/country/:country',
+    name: 'Country',
+    component: () => import('../views/Country.vue')
   }
 ];
 
