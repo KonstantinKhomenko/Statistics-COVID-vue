@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <p class="ma-3">Top 10 countries</p>
+  <div class="list-wrap">
+    <p class="ma-3 list-title">Top 10 countries</p>
     <TopList :top-country-info="topCountryInfo" />
   </div>
 </template>
@@ -30,8 +30,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
+.list-title {
   font-size: 30px;
   font-weight: bold;
+}
+
+.list-wrap {
+  margin-left: 30px;
 }
 </style>

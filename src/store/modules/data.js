@@ -14,12 +14,18 @@ const storeData = {
 
   getters: {
     allContinents: ({ allContinents }) => Boolean(allContinents),
-    allContinentsCases: ({ allContinents }) => allContinents.reduce((acc, el) => acc += el.cases, 0),
-    allContinentsTodayCases: ({ allContinents }) => allContinents.reduce((acc, el) => acc += el.todayCases, 0),
-    allContinentsDeaths: ({ allContinents }) => allContinents.reduce((acc, el) => acc += el.deaths, 0),
-    allContinentsTodayDeaths: ({ allContinents }) => allContinents.reduce((acc, el) => acc += el.todayDeaths, 0),
-    allContinentsRecovered: ({ allContinents }) => allContinents.reduce((acc, el) => acc += el.recovered, 0),
-    allContinentsTodayRecovered: ({ allContinents }) => allContinents.reduce((acc, el) => acc += el.todayRecovered, 0),
+    allContinentsCases: ({ allContinents }) =>
+      allContinents.reduce((acc, el) => (acc += el.cases), 0),
+    allContinentsTodayCases: ({ allContinents }) =>
+      allContinents.reduce((acc, el) => (acc += el.todayCases), 0),
+    allContinentsDeaths: ({ allContinents }) =>
+      allContinents.reduce((acc, el) => (acc += el.deaths), 0),
+    allContinentsTodayDeaths: ({ allContinents }) =>
+      allContinents.reduce((acc, el) => (acc += el.todayDeaths), 0),
+    allContinentsRecovered: ({ allContinents }) =>
+      allContinents.reduce((acc, el) => (acc += el.recovered), 0),
+    allContinentsTodayRecovered: ({ allContinents }) =>
+      allContinents.reduce((acc, el) => (acc += el.todayRecovered), 0),
     allCases: ({ allCases }) => Boolean(allCases),
     allDataDate: ({ allDataDate }) => allDataDate,
     allDataNumbers: ({ allDataNumbers }) => allDataNumbers,

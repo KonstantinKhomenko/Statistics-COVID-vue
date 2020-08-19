@@ -33,16 +33,18 @@ export default {
 <style lang="scss" scoped>
 .country-index {
   flex: none;
-  padding-right: 20px;
+  font-weight: bold;
+  width: 50px;
+  font-size: 1.1rem;
 }
 
 .country-title {
   font-weight: bold;
   font-size: 1.3rem;
+  color: red;
 }
 
 .country-name {
-  color: red;
   font-weight: bold;
   font-size: 1.2rem;
 }

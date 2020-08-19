@@ -1,14 +1,12 @@
-import Country from '@/components/classes/Country';
 import axios from '@/plugins/axios';
 import mutations from '../mutations';
 
-const { REC_RES, NEW_COUNTRY_NAME, NEW_COUNTRY } = mutations;
+const { REC_RES, NEW_COUNTRY_NAME } = mutations;
 
 const currentCountryStore = {
   namespaced: true,
   state: {
     currentCountryName: '',
-    countryInfo: {},
     timeline: {}
   },
 
@@ -26,9 +24,6 @@ const currentCountryStore = {
     },
     [NEW_COUNTRY_NAME](state, { country }) {
       state.currentCountryName = country;
-    },
-    [NEW_COUNTRY](state, country) {
-      state.countryInfo = country;
     }
   },
 
@@ -42,27 +37,6 @@ const currentCountryStore = {
       } catch (error) {
         console.log(error);
       }
-    },
-    getCountryInfo({ getters, commit }) {
-      const { currentCountryName, labels, cases, deaths, recovered } = getters;
-      const id = Date.now();
-      const datasets = {
-        cases,
-        deaths,
-        recovered
-      };
-
-      const country = new Country(
-        id,
-        currentCountryName,
-        cases[cases.length - 1],
-        deaths[deaths.length - 1],
-        recovered[recovered.length - 1],
-        datasets,
-        labels
-      );
-
-      commit(NEW_COUNTRY, country);
     }
   }
 };

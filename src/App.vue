@@ -17,10 +17,12 @@
     <v-app-bar color="blue-grey lighten-2" dense dark app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title class="headline title">
-        <v-icon class="mr-2" color="#D50000">mdi-virus</v-icon>
-        <span class="toolbar-title">COVID-19</span>
-      </v-toolbar-title>
+      <router-link to="/" class="router-link">
+        <v-toolbar-title class="headline title">
+          <v-icon class="mr-2" color="#D50000">mdi-virus</v-icon>
+          <span class="toolbar-title">COVID-19</span>
+        </v-toolbar-title>
+      </router-link>
 
       <v-spacer></v-spacer>
     </v-app-bar>
@@ -56,11 +58,18 @@ export default {
 #app {
   font-family: 'Merriweather', serif;
 }
+
 .toolbar-title {
   font-weight: bold;
   font-size: 1.3rem;
 }
+
 .title {
   color: #d50000;
+  cursor: pointer;
+}
+
+.router-link {
+  text-decoration: none;
 }
 </style>

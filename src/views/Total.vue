@@ -1,7 +1,7 @@
 <template>
   <main class="pa-3">
     <section>
-      <p class="ma-3">World summary sats</p>
+      <p class="ma-3 total-title">World summary sats</p>
       <v-row align="center" justify="center">
         <StatCard
           v-for="card in cards"
@@ -16,29 +16,11 @@
     </section>
 
     <section>
-      <p class="ma-3">Visuals</p>
-      <v-btn
-        class="ma-3 blue lighten-1"
-        elevation="10"
-        small
-        @click="showVisuals('cases')"
-        >Total cases
-      </v-btn>
-      <v-btn
-        class="ma-3 deep-orange darken-4"
-        elevation="10"
-        small
-        @click="showVisuals('deaths')"
-        >Deaths
-      </v-btn>
-      <v-btn
-        class="ma-3 green lighten-2"
-        elevation="10"
-        small
-        @click="showVisuals('recovered')"
-        >Recoveries
-      </v-btn>
-      <div class="graf">
+      <p class="ma-3 total-title">Visuals</p>
+
+      <VisualBtns @visual-btn-clicked="showVisuals" />
+
+      <div>
         <LineChart
           v-for="(visual, index) in visuals"
           :key="index"
@@ -55,12 +37,14 @@ import StatCard from '@/components/StatCard';
 import LineChart from '@/components/LineChart';
 import { mapActions, mapGetters } from 'vuex';
 import Card from '@/components/classes/Card';
+import VisualBtns from '@/components/VisualBtns';
 
 export default {
   name: 'Total',
   components: {
     StatCard,
-    LineChart
+    LineChart,
+    VisualBtns
   },
   data: () => ({
     cards: [],
@@ -170,15 +154,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
+.total-title {
   font-size: 30px;
   font-weight: bold;
-}
-
-.graf {
-  width: 100%;
-  height: 100%;
-  max-width: auto;
-  margin: auto;
 }
 </style>
