@@ -62,6 +62,14 @@ export default {
     ])
   },
 
+  watch: {
+    '$route.params': {
+      handler: 'getCountry',
+      immediate: true,
+      deep: true
+    }
+  },
+
   methods: {
     ...mapActions('currentCountry', ['fetchNewCountry']),
     updateStats() {
@@ -76,6 +84,8 @@ export default {
       const allRecovered = this.recovered[this.recovered.length - 1];
       const todayRecovered =
         allRecovered - this.recovered[this.recovered.length - 2];
+
+      this.cards.length = 0;
 
       this.cards.push(
         new Card(
@@ -137,13 +147,12 @@ export default {
         },
         options: { responsive: true, maintainAspectRatio: false }
       });
+    },
+    async getCountry({ country }) {
+      await this.fetchNewCountry(country);
+      this.updateStats();
+      this.updateVisuals('cases');
     }
-  },
-
-  async mounted() {
-    await this.fetchNewCountry(this.$route.params.country);
-    this.updateStats();
-    this.updateVisuals('cases');
   }
 };
 </script>
