@@ -29,7 +29,7 @@ const topCountriesStore = {
           'showNotify',
           {
             type: 'error',
-            msg: error.message
+            msg: error.response.data.message || error.message
           },
           { root: true }
         );

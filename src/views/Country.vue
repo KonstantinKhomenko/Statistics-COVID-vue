@@ -3,33 +3,37 @@
     <Loader v-if="isShowLoader" />
 
     <template v-else>
-      <section>
-        <p class="ma-3 country-title">{{ currentCountryName }} statistics</p>
-        <v-row align="center" justify="center">
-          <StatCard
-            v-for="card in cards"
-            :key="card.title"
-            :bg-color="card.bgColor"
-            :card-icon="card.icon"
-            :card-title="card.title"
-            :card-amount="card.amount"
-            :card-amount-new="card.amountNew"
+      <template v-if="currentCountryName">
+        <section>
+          <p class="ma-3 country-title">{{ currentCountryName }} statistics</p>
+          <v-row align="center" justify="center">
+            <StatCard
+              v-for="card in cards"
+              :key="card.title"
+              :bg-color="card.bgColor"
+              :card-icon="card.icon"
+              :card-title="card.title"
+              :card-amount="card.amount"
+              :card-amount-new="card.amountNew"
+            />
+          </v-row>
+        </section>
+
+        <section>
+          <p class="ma-3 country-title">Visuals</p>
+
+          <VisualBtns @visual-btn-clicked="updateVisuals" />
+
+          <LineChart
+            v-for="(visual, index) in visuals"
+            :key="index"
+            :chart-data="visual.chartData"
+            :options="visual.options"
           />
-        </v-row>
-      </section>
+        </section>
+      </template>
 
-      <section>
-        <p class="ma-3 country-title">Visuals</p>
-
-        <VisualBtns @visual-btn-clicked="updateVisuals" />
-
-        <LineChart
-          v-for="(visual, index) in visuals"
-          :key="index"
-          :chart-data="visual.chartData"
-          :options="visual.options"
-        />
-      </section>
+      <ErrorAPIMsg v-else />
     </template>
   </main>
 </template>
@@ -41,6 +45,7 @@ import Card from '@/components/classes/Card';
 import LineChart from '@/components/LineChart';
 import VisualBtns from '@/components/VisualBtns';
 import Loader from '@/components/Loader';
+import ErrorAPIMsg from '@/components/ErrorAPIMsg';
 
 export default {
   name: 'Country',
@@ -48,7 +53,8 @@ export default {
     StatCard,
     LineChart,
     VisualBtns,
-    Loader
+    Loader,
+    ErrorAPIMsg
   },
 
   data: () => ({
@@ -78,8 +84,6 @@ export default {
   methods: {
     ...mapActions('currentCountry', ['fetchNewCountry']),
     updateStats() {
-      if (!this.currentCountryName) return;
-
       const allCases = this.cases[this.cases.length - 1];
       const todayCases = allCases - this.cases[this.cases.length - 2];
 
@@ -123,8 +127,6 @@ export default {
       );
     },
     updateVisuals(key) {
-      if (!this.currentCountryName) return;
-
       this.visuals.length = 0;
 
       const chartLabels = {
@@ -155,8 +157,11 @@ export default {
     },
     async getCountry({ country }) {
       await this.fetchNewCountry(country);
-      this.updateStats();
-      this.updateVisuals('cases');
+
+      if (this.currentCountryName) {
+        this.updateStats();
+        this.updateVisuals('cases');
+      }
     }
   }
 };

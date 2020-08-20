@@ -25,7 +25,7 @@ export default {
 
       setTimeout(() => {
         this.notInfo = null;
-      }, 3000);
+      }, 5000);
     }
   }
 };

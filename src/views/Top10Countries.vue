@@ -1,10 +1,16 @@
 <template>
   <div class="list-wrap">
-    <p class="ma-3 list-title">Top 10 countries</p>
-
     <Loader v-if="isShowLoader" />
 
-    <TopList v-else :top-country-info="topCountryInfo" />
+    <template v-else>
+      <template v-if="topCountryInfo.length">
+        <p class="ma-3 list-title">Top 10 countries</p>
+
+        <TopList :top-country-info="topCountryInfo" />
+      </template>
+
+      <ErrorAPIMsg v-else />
+    </template>
   </div>
 </template>
 
@@ -12,12 +18,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import TopList from '@/components/TopList';
 import Loader from '@/components/Loader';
+import ErrorAPIMsg from '@/components/ErrorAPIMsg';
 
 export default {
   name: 'Top10Countries',
   components: {
     TopList,
-    Loader
+    Loader,
+    ErrorAPIMsg
   },
 
   computed: {
@@ -30,7 +38,7 @@ export default {
   },
 
   async mounted() {
-    this.fetchTopCountries();
+    await this.fetchTopCountries();
   }
 };
 </script>
