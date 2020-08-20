@@ -1,34 +1,36 @@
 <template>
   <main class="pa-3">
-    <section>
-      <p class="ma-3 country-title">{{ currentCountryName }} statistics</p>
-      <v-row align="center" justify="center">
-        <StatCard
-          v-for="card in cards"
-          :key="card.title"
-          :bg-color="card.bgColor"
-          :card-icon="card.icon"
-          :card-title="card.title"
-          :card-amount="card.amount"
-          :card-amount-new="card.amountNew"
-        />
-      </v-row>
-    </section>
+    <Loader v-if="isShowLoader" />
 
-    <section>
-      <p class="ma-3 country-title">Visuals</p>
+    <template v-else>
+      <section>
+        <p class="ma-3 country-title">{{ currentCountryName }} statistics</p>
+        <v-row align="center" justify="center">
+          <StatCard
+            v-for="card in cards"
+            :key="card.title"
+            :bg-color="card.bgColor"
+            :card-icon="card.icon"
+            :card-title="card.title"
+            :card-amount="card.amount"
+            :card-amount-new="card.amountNew"
+          />
+        </v-row>
+      </section>
 
-      <VisualBtns @visual-btn-clicked="updateVisuals" />
+      <section>
+        <p class="ma-3 country-title">Visuals</p>
 
-      <div>
+        <VisualBtns @visual-btn-clicked="updateVisuals" />
+
         <LineChart
           v-for="(visual, index) in visuals"
           :key="index"
           :chart-data="visual.chartData"
           :options="visual.options"
         />
-      </div>
-    </section>
+      </section>
+    </template>
   </main>
 </template>
 
@@ -38,13 +40,15 @@ import { mapActions, mapGetters } from 'vuex';
 import Card from '@/components/classes/Card';
 import LineChart from '@/components/LineChart';
 import VisualBtns from '@/components/VisualBtns';
+import Loader from '@/components/Loader';
 
 export default {
   name: 'Country',
   components: {
     StatCard,
     LineChart,
-    VisualBtns
+    VisualBtns,
+    Loader
   },
 
   data: () => ({
@@ -59,7 +63,8 @@ export default {
       'cases',
       'deaths',
       'recovered'
-    ])
+    ]),
+    ...mapGetters(['isShowLoader'])
   },
 
   watch: {

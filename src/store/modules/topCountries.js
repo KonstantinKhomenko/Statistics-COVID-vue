@@ -18,10 +18,17 @@ const topCountriesStore = {
     }
   },
   actions: {
-    async fetchTopCountries({ commit }) {
-      const res = await axios.get(`/countries?sort=active`);
-      const countries = res.slice(0, 10);
-      commit(NEW_TOP_COUNTRY, countries);
+    async fetchTopCountries({ commit, dispatch }) {
+      try {
+        dispatch('toggleLoader', true, { root: true });
+        const res = await axios.get(`/countries?sort=active`);
+        const countries = res.slice(0, 10);
+        commit(NEW_TOP_COUNTRY, countries);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        dispatch('toggleLoader', false, { root: true });
+      }
     }
   }
 };

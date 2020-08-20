@@ -1,22 +1,28 @@
 <template>
   <div class="list-wrap">
     <p class="ma-3 list-title">Top 10 countries</p>
-    <TopList :top-country-info="topCountryInfo" />
+
+    <Loader v-if="isShowLoader" />
+
+    <TopList v-else :top-country-info="topCountryInfo" />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import TopList from '@/components/TopList';
+import Loader from '@/components/Loader';
 
 export default {
   name: 'Top10Countries',
   components: {
-    TopList
+    TopList,
+    Loader
   },
 
   computed: {
-    ...mapGetters('topCountries', ['topCountryInfo'])
+    ...mapGetters('topCountries', ['topCountryInfo']),
+    ...mapGetters(['isShowLoader'])
   },
 
   methods: {
@@ -36,6 +42,6 @@ export default {
 }
 
 .list-wrap {
-  margin-left: 30px;
+  margin-left: 20px;
 }
 </style>

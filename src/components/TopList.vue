@@ -11,6 +11,7 @@
       :key="country.cases"
       link
       :to="`country/${country.name}`"
+      class="country-item"
     >
       <v-list-item-title class="country-index">{{ index + 1 }}</v-list-item-title>
       <v-list-item-title class="country-name">{{ country.name }}</v-list-item-title>
@@ -44,8 +45,16 @@ export default {
   color: red;
 }
 
-.country-name {
-  font-weight: bold;
-  font-size: 1.2rem;
+.country-item {
+  &:hover {
+    background-color: #ffcdd2;
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.7);
+    transform: scale(1.04);
+  }
+
+  .country-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
 }
 </style>

@@ -28,14 +28,16 @@ const currentCountryStore = {
   },
 
   actions: {
-    async fetchNewCountry({ commit }, country) {
+    async fetchNewCountry({ commit, dispatch }, country) {
       try {
-        //* loader
+        dispatch('toggleLoader', true, { root: true });
         const res = await axios.get(`/historical/${country}?lastdays=30`);
         commit(REC_RES, res);
         commit(NEW_COUNTRY_NAME, res);
       } catch (error) {
         console.log(error);
+      } finally {
+        dispatch('toggleLoader', false, { root: true });
       }
     }
   }

@@ -1,34 +1,36 @@
 <template>
   <main class="pa-3">
-    <section>
-      <p class="ma-3 total-title">World summary sats</p>
-      <v-row align="center" justify="center">
-        <StatCard
-          v-for="card in cards"
-          :key="card.title"
-          :bg-color="card.bgColor"
-          :card-icon="card.icon"
-          :card-title="card.title"
-          :card-amount="card.amount"
-          :card-amount-new="card.amountNew"
-        />
-      </v-row>
-    </section>
+    <Loader v-if="isShowLoader" />
 
-    <section>
-      <p class="ma-3 total-title">Visuals</p>
+    <template v-else>
+      <section>
+        <p class="ma-3 total-title">World summary sats</p>
+        <v-row align="center" justify="center">
+          <StatCard
+            v-for="card in cards"
+            :key="card.title"
+            :bg-color="card.bgColor"
+            :card-icon="card.icon"
+            :card-title="card.title"
+            :card-amount="card.amount"
+            :card-amount-new="card.amountNew"
+          />
+        </v-row>
+      </section>
 
-      <VisualBtns @visual-btn-clicked="showVisuals" />
+      <section>
+        <p class="ma-3 total-title">Visuals</p>
 
-      <div>
+        <VisualBtns @visual-btn-clicked="showVisuals" />
+
         <LineChart
           v-for="(visual, index) in visuals"
           :key="index"
           :chart-data="visual.chartData"
           :options="visual.options"
         />
-      </div>
-    </section>
+      </section>
+    </template>
   </main>
 </template>
 
@@ -38,13 +40,15 @@ import LineChart from '@/components/LineChart';
 import { mapActions, mapGetters } from 'vuex';
 import Card from '@/components/classes/Card';
 import VisualBtns from '@/components/VisualBtns';
+import Loader from '@/components/Loader';
 
 export default {
   name: 'Total',
   components: {
     StatCard,
     LineChart,
-    VisualBtns
+    VisualBtns,
+    Loader
   },
   data: () => ({
     cards: [],
@@ -52,7 +56,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters('data', [
+    ...mapGetters('world', [
       'allContinents',
       'allContinentsCases',
       'allContinentsTodayCases',
@@ -63,15 +67,12 @@ export default {
       'allCases',
       'allDataDate',
       'allDataNumbers'
-    ])
+    ]),
+    ...mapGetters(['isShowLoader'])
   },
 
   methods: {
-    ...mapActions('data', [
-      'fetchDataOnContinents',
-      'fetchAllCases',
-      'getAllValues'
-    ]),
+    ...mapActions('world', ['fetchDataOnWorld', 'getAllValues']),
     updateStats() {
       if (!this.allContinents) return;
 
@@ -143,11 +144,9 @@ export default {
   },
 
   async mounted() {
-    await this.fetchDataOnContinents();
+    await this.fetchDataOnWorld();
+
     this.updateStats();
-
-    await this.fetchAllCases();
-
     this.showVisuals('cases');
   }
 };

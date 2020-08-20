@@ -50,21 +50,19 @@ const storeData = {
   },
 
   actions: {
-    async fetchDataOnContinents({ commit }) {
+    async fetchDataOnWorld({ commit, dispatch }) {
       try {
-        const res = await axios.get('/continents');
-        commit(CONTINENTS, res);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+        dispatch('toggleLoader', true, { root: true });
 
-    async fetchAllCases({ commit }) {
-      try {
-        const res = await axios.get('/historical/all');
-        commit(ALL_CASES, res);
+        const cont = await axios.get('/continents');
+        commit(CONTINENTS, cont);
+
+        const all = await axios.get('/historical/all');
+        commit(ALL_CASES, all);
       } catch (error) {
         console.log(error);
+      } finally {
+        dispatch('toggleLoader', false, { root: true });
       }
     },
 
