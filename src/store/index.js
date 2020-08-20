@@ -4,6 +4,7 @@ import world from './modules/world';
 import currentCountry from './modules/currentCountry';
 import topCountries from './modules/topCountries';
 import loader from './modules/loader';
+import notification from './modules/notification';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     world,
     currentCountry,
     topCountries,
-    loader
+    loader,
+    notification
   }
 });

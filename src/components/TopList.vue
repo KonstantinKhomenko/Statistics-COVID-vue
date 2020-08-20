@@ -47,7 +47,7 @@ export default {
 
 .country-item {
   &:hover {
-    background-color: #ffcdd2;
+    border: 3px solid red;
     box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.7);
     transform: scale(1.04);
   }

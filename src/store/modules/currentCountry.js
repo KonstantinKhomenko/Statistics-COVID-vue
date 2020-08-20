@@ -35,7 +35,14 @@ const currentCountryStore = {
         commit(REC_RES, res);
         commit(NEW_COUNTRY_NAME, res);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          'showNotify',
+          {
+            type: 'error',
+            msg: error.message
+          },
+          { root: true }
+        );
       } finally {
         dispatch('toggleLoader', false, { root: true });
       }

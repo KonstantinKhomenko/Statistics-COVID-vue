@@ -60,7 +60,14 @@ const storeData = {
         const all = await axios.get('/historical/all');
         commit(ALL_CASES, all);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          'showNotify',
+          {
+            type: 'error',
+            msg: error.message
+          },
+          { root: true }
+        );
       } finally {
         dispatch('toggleLoader', false, { root: true });
       }

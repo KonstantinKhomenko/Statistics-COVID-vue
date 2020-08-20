@@ -26,9 +26,9 @@
 
       <v-spacer></v-spacer>
     </v-app-bar>
-
     <v-main>
       <v-container fluid>
+        <Notification />
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -36,8 +36,14 @@
 </template>
 
 <script>
+import Notification from '@/components/Notification';
+
 export default {
   name: 'App',
+  components: {
+    Notification
+  },
+
   data: () => ({
     items: [
       { title: 'World summary', icon: 'mdi-earth', link: '/' },

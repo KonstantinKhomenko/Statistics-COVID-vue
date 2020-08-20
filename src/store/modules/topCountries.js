@@ -25,7 +25,14 @@ const topCountriesStore = {
         const countries = res.slice(0, 10);
         commit(NEW_TOP_COUNTRY, countries);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          'showNotify',
+          {
+            type: 'error',
+            msg: error.message
+          },
+          { root: true }
+        );
       } finally {
         dispatch('toggleLoader', false, { root: true });
       }
