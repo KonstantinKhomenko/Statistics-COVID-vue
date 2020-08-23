@@ -22,6 +22,7 @@ const topCountriesStore = {
       try {
         dispatch('toggleLoader', true, { root: true });
         const res = await axios.get(`/countries?sort=active`);
+        console.log(res);
         const countries = res.slice(0, 10);
         commit(NEW_TOP_COUNTRY, countries);
       } catch (error) {

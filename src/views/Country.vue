@@ -156,6 +156,8 @@ export default {
       });
     },
     async getCountry({ country }) {
+      console.log(this.$route);
+      
       await this.fetchNewCountry(country);
 
       if (this.currentCountryName) {

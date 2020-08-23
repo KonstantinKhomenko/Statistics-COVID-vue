@@ -5,6 +5,8 @@ import currentCountry from './modules/currentCountry';
 import topCountries from './modules/topCountries';
 import loader from './modules/loader';
 import notification from './modules/notification';
+import countries from './modules/countries';
+import autocomplete from './modules/autocomplete';
 
 Vue.use(Vuex);
 
@@ -17,6 +19,8 @@ export default new Vuex.Store({
     currentCountry,
     topCountries,
     loader,
-    notification
+    notification,
+    countries,
+    autocomplete
   }
 });
