@@ -19,6 +19,8 @@
           @keydown.esc="clearSearch"
         />
         <ListItem />
+
+        <p class="msg-empty-arr" v-if="!matchesLength && searchValue.length !== 0">Country not found</p>
       </div>
     </div>
   </div>
@@ -58,7 +60,8 @@ export default {
       'toggleVisible',
       'changeSelectedIndex',
       'findMatches',
-      'changeSelectedItem'
+      'changeSelectedItem',
+      'clearArrOfMatches'
     ]),
     startSearching() {
       this.toggleVisible();
@@ -84,6 +87,7 @@ export default {
       this.searchValue = '';
       this.changeSelectedItem('');
       this.changeSelectedIndex(0);
+      this.clearArrOfMatches();
     }
   },
 
@@ -143,6 +147,11 @@ export default {
         &:focus {
           border: 3px solid #455a64;
         }
+      }
+
+      .msg-empty-arr {
+        color: red;
+        font-size: 18px;
       }
     }
 

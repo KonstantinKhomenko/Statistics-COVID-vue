@@ -23,14 +23,20 @@ const countriesStore = {
   },
 
   actions: {
-    async fetchAllCountries({ commit }) {
+    async fetchAllCountries({ commit, dispatch }) {
       try {
         const response = await axios.get(`/countries?sort=country`);
-        console.log(response);
         const countries = serializeResponse(response);
         commit(REC_COUNTRIES, countries);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        dispatch(
+          'showNotify',
+          {
+            type: 'error',
+            msg: error.response.data.message || error.message
+          },
+          { root: true }
+        );
       }
     }
   }

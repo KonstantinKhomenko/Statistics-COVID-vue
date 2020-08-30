@@ -67,20 +67,15 @@ const autocompleteStore = {
         commit(REC_MATCHES, matchesArr);
         commit(REC_LENGTH, matchesArr.length);
 
-        // if (matchesArr.length) {
-        //   commit(REC_MATCHES, matchesArr);
-        //   commit(REC_LENGTH, matchesArr.length);
-        // } else {
-        //   commit(REC_MATCHES, ['Country not found']);
-        //   commit(REC_LENGTH, matchesArr.length);
-        // }
-
         if (selectedIndex > matchesArr.length - 1) {
           commit(CHANGE_INDEX, 0);
         }
       } else {
         commit(REC_MATCHES, []);
       }
+    },
+    clearArrOfMatches({ commit }) {
+      commit(REC_MATCHES, []);
     }
   }
 };

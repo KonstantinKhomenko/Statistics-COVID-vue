@@ -3,7 +3,7 @@
     <p class="ma-3 list-title">Search country</p>
     <Loader v-if="isShowLoader" />
     <div class="autocomplete-wrap d-flex">
-      <Autocomplete />
+      <Autocomplete ref="autocomplete" />
       <v-btn class="ma-3" color="cyan" elevation="10" @click="searchBtnClicked">Search</v-btn>
     </div>
   </div>
@@ -34,6 +34,8 @@ export default {
             country: this.selectedItem
           }
         });
+
+        this.$refs.autocomplete.clearSearch();
       }
     }
   }
