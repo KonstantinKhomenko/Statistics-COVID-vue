@@ -22,7 +22,7 @@ const currentCountryStore = {
     [REC_RES](state, { timeline }) {
       state.timeline = timeline;
     },
-    [NEW_COUNTRY_NAME](state, { country }) {
+    [NEW_COUNTRY_NAME](state, { country = '' }) {
       state.currentCountryName = country;
     }
   },
@@ -43,6 +43,8 @@ const currentCountryStore = {
           },
           { root: true }
         );
+
+        commit(NEW_COUNTRY_NAME, {});
       } finally {
         dispatch('toggleLoader', false, { root: true });
       }
